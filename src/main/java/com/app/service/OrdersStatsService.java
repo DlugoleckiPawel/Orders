@@ -27,7 +27,6 @@ public class OrdersStatsService {
 	private final OrderRepository orderRepository;
 
 	public OrdersStatsAveragePriceBetweenDatesDto calculateAveragePriceBetween(String beginDateStr, String endDateStr) {
-
 		if (Objects.isNull(beginDateStr)) {
 			throw new AppException("begin date object is null");
 		}
@@ -57,8 +56,6 @@ public class OrdersStatsService {
 				.builder()
 				.price(averagePrice)
 				.build();
-
-
 	}
 
 	public Map<Category, ProductDto> mostExpensiveProductInEachCategory() {
@@ -86,59 +83,8 @@ public class OrdersStatsService {
 				));
 	}
 
-	// Wyznacz informację o kliencie, który zapłacił najwięcej za
-	// złożone zamówienia.
-	// sql wysylasz zapytania ktore zwraca dane customera po tym jak pogrupujesz po sumie cen za zamowienie
-	public CustomerWithPrice getCustomerWhoPaidTheMostForAllPurchases() {
-		// mapa
-		var entryMap = orderRepository
-				.findAll()
-				.stream()
-				.collect(
-						Collectors.groupingBy(
-								order -> ModelMapper.fromCustomerToCustomerDto(order.getCustomer()),
-								Collectors.mapping(
-										Order::totalPrice,
-										Collectors2.summarizingBigDecimal(o -> o))))
-				.entrySet()
-				.stream()
-				.max(Comparator.comparing(e -> e.getValue().getSum()))
-				.orElseThrow(() -> new AppException("error"));
 
-		return CustomerWithPrice
-				.builder()
-				.customerDto(entryMap.getKey())
-				.price(entryMap.getValue().getSum())
-				.build();
-
-		// https://stackoverflow.com/questions/36328063/how-to-return-a-custom-object-from-a-spring-data-jpa-group-by-query
-	/*	return orderRepository
-				.findWithMaxTotalOrdersPrice()
-				.stream()
-				.findFirst()
-				//.map(ModelMapper::fromCustomerToCustomerDto)
-				.orElseThrow();*/
-
-	}
-
-	// Wyznaczenie daty, dla której złożono najwięcej zamówień oraz daty
-	// dla której złożono najmniej zamówień
 	public DatesOrdersQuantity dateAndQuantityWhenThereWereMostOrders() {
-		/*var entryDate = orderRepository
-				.findAll()
-				.stream()
-				.collect(Collectors.groupingBy(Order::getOrderDate, Collectors.counting()))
-				.entrySet()
-				.stream()
-				.max(Map.Entry.comparingByValue())
-				.orElseThrow(() -> new AppException("error"));
-
-		return DatesOrdersQuantity
-				.builder()
-				.date(entryDate.getKey())
-				.quantity(entryDate.getValue())
-				.build();*/
-
 		var dates = orderRepository.groupByOrderDate();
 		return DatesOrdersQuantity
 				.builder()
