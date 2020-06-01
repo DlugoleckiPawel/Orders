@@ -11,7 +11,7 @@ Rest api made using SpringBoot, which allows you to manage orders. The project u
 * Gson 2.8.5
 * Eclipse-Collections 9.2.0
 * Lombok 1.18.10
-* MySql-Connector-Java 9.0.19
+* mySql-connector-java 9.0.19
 * jjwt-api 0.11.1
 * jjwt-impl 0.11.1
 * jjwt-jackson 0.11.1
