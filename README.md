@@ -1,5 +1,5 @@
-# CarsCollectionsApp
-A console application that allows you to conveniently search for a car collection according to the selected criterion and view statistics
+# Orders
+Rest api made using SpringBoot, which allows you to manage orders. The project uses the JSON Web Token authorization mechanis
 
 # Technologies
 
