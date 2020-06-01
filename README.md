@@ -1,5 +1,5 @@
 # Orders
-Rest api made using SpringBoot, which allows you to manage orders. The project uses the JSON Web Token authorization mechanis
+Rest api made using Spring Boot, which allows user to generate orders with products and customers that are being stored in JSON files or to insert each order directly from terminal. The project uses the JSON Web Token authorization mechanism.
 
 # Technologies
 
